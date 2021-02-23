@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_filters',
     'bootstrap4',
+    'django_extensions',
     'users',
     'trans'
 ]
@@ -60,7 +61,7 @@ ROOT_URLCONF = 'payout.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +140,7 @@ STATICFILES_DIRS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+FILTERS_EMPTY_CHOICE_LABEL = 'All'

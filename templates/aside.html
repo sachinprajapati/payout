@@ -75,7 +75,36 @@
 {#          </li>#}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-exchange-alt"></i>
+              <p>
+                DMT
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'trans:dmt_report' %}" class="nav-link">
+                  <i class="fas fa-circle-notch nav-icon fa-xs"></i>
+                  <p>Report</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'users:list_users' %}" class="nav-link">
+                  <i class="fas fa-circle-notch nav-icon fa-xs"></i>
+                  <p>Excel Plugin</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'users:list_users' %}" class="nav-link">
+                  <i class="fas fa-circle-notch nav-icon fa-xs"></i>
+                  <p>Charges</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user nav-icon fa-xs"></i>
               <p>
                 Users
                 <i class="fas fa-angle-left right"></i>
@@ -84,14 +113,38 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{% url 'users:add_user' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-user-plus nav-icon"></i>
                   <p>Add User</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'users:list_users' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-users nav-icon"></i>
                   <p>List Users</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+            </li>
+            <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user nav-icon fa-xs"></i>
+              <p>
+                Account
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'trans:balance_ledger' %}" class="nav-link">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>Balance Ledger</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'users:list_users' %}" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Account Log</p>
                 </a>
               </li>
             </ul>

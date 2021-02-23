@@ -65,14 +65,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         Returns the first_name plus the last_name, with a space in between.
         '''
-        full_name = '%s %s' % (self.first_name, self.last_name)
+        full_name = name
         return full_name.strip()
 
     def get_short_name(self):
         '''
         Returns the short name for the user.
         '''
-        return self.first_name
+        return self.name
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         '''
@@ -106,6 +106,7 @@ class WalletHistory(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     prev_bal = models.DecimalField(max_digits=12, decimal_places=4, verbose_name=_("Previous Balace"))
     amount = models.DecimalField(max_digits=10, decimal_places=4, verbose_name=_("Amount Added"))
+    remarks = models.TextField(null=True)
     dt = models.DateTimeField(auto_now_add=True)
 
     unique_together = ['wallet', 'order']

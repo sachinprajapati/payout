@@ -1,6 +1,25 @@
 {% extends 'dashboard.html' %}
 {% load bootstrap4 %}
 {% load render_table from django_tables2 %}
+{% load crispy_forms_tags %}
+{% load django_tables2 %}
+
+{% block body-attr %} sidebar-collapse{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        .filter-form{
+            margin-bottom:20px;
+            margin-left: -10px;
+        }
+        .form-group{
+            margin: auto 10px;
+        }
+        label{
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}
 
 {% block subcontent %}
 <div class="row">
@@ -15,9 +34,17 @@
       <div class="card-body">
             <div class="table-responsive">
                 {% if filter %}
-                <form action="" method="get" class="form form-inline">
+                <form action="" method="get" class="form form-inline filter-form">
                     {% bootstrap_form filter.form layout='inline' %}
-                    {% bootstrap_button 'filter' %}
+                    {% bootstrap_button 'filter' button_class='btn-outline-primary' %}
+                &nbsp;
+                {% for format in view.export_formats %}
+                    <a href="{% export_url format %}">
+                        <button class="btn btn-outline-dark" type="button">
+                            Download  <code>.{{ format }}</code>
+                        </button>
+                    </a>
+                {% endfor %}
                 </form>
                 {% endif %}
                 {% render_table table %}
@@ -27,4 +54,15 @@
     <!-- /.card -->
   </div>
 </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+    $(document).ready(function () {
+        var a = $('.asc > a');
+        a.after('<span class="fa fa-long-arrow-alt-up fa-xs float-right" style="margin-top:5px;"></span>');
+        var a = $('.desc > a');
+        a.after('<span class="fa fa-long-arrow-alt-down fa-xs float-right" style="margin-top:5px;"></span>');
+    });
+    </script>
 {% endblock %}

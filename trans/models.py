@@ -1,9 +1,13 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
+from users.models import WalletHistory
 
 PAYMENT_MODE = [
     (1, 'IMPS'),
@@ -40,3 +44,8 @@ class Transaction(models.Model):
     type = models.PositiveIntegerField(choices=TRANS_TYPE)
     remarks = models.TextField(null=True)
     dt = models.DateTimeField(auto_now_add=True, verbose_name=_("Date & Time"))
+
+@receiver(post_save, sender=Transaction)
+def create_cart(sender, instance, created, **kwargs):
+    if created:
+        pass
