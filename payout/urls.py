@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.contrib.auth import views as auth_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 from users.views import RegisterRetailer, ActivateAccount
 
@@ -27,4 +29,4 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('dashboard/', include('users.urls')),
     path('dashboard/', include('trans.urls'))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
