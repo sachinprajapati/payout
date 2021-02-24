@@ -23,10 +23,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from .models import Profile
-from .forms import RetailerForm, UserCreateForm
+from .forms import RetailerForm, UserCreateForm, UserUpdateForm
 
 def Dashboard(request):
-    return render(request, 'dashboard1.html', {})
+    return render(request, 'dashboard.html', {})
 
 @method_decorator(staff_member_required(login_url=reverse_lazy('login')), name='dispatch')
 class AddUser(SuccessMessageMixin, CreateView):
@@ -103,5 +103,14 @@ class ActivateAccount(View):
 
 class UpdateUsers(SuccessMessageMixin, UpdateView):
     model = Profile
-    form_class = UserCreateForm
+    form_class = UserUpdateForm
     template_name = 'users/user_form.html'
+    success_url = reverse_lazy('users:list_users')
+    success_message = '%(email)s successfully updated'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['email'] = self.get_object().user.email
+        initial['name'] = self.get_object().user.name
+        initial['is_reseller'] = self.get_object().user.is_reseller
+        return initial

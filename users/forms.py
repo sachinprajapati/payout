@@ -50,6 +50,9 @@ class RetailerForm(forms.ModelForm):
 class UserCreateForm(RetailerForm):
     is_reseller = forms.BooleanField(required=False)
 
+    def clean_email(self):
+        raise forms.ValidationError('Not Valid Email')
+
     def save(self, commit=True):
         m = super(RetailerForm, self).save(commit=False)
         data = self.cleaned_data
@@ -70,4 +73,24 @@ class UserCreateForm(RetailerForm):
                 'pwd': pwd
             })
             u.email_user(subject, message)
+        return m
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(disabled=True)
+    address = forms.CharField(widget=forms.Textarea(attrs={'rows': '3'}))
+    name = forms.CharField(max_length=125, label="Contact Person Name")
+    is_reseller = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Profile
+        fields = "__all__"
+        exclude = ('user', 'bal')
+
+    def save(self, commit=True):
+        m = super(UserUpdateForm, self).save(commit=False)
+        data = self.cleaned_data
+        m.user.name = data['name']
+        m.user.is_reseller = self.cleaned_data['is_reseller']
+        m.user.save()
+        m.save()
         return m

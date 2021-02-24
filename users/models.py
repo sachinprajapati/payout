@@ -83,6 +83,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_update_url(self):
         return reverse_lazy('users:update_user', kwargs={'pk': self.profile.pk})
 
+    def is_retailler(self):
+        if not self.is_reseller or not self.is_staff or not self.is_superuser:
+            return False
+        return True
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
