@@ -28,5 +28,5 @@ urlpatterns = [
     path('regitser/', RegisterRetailer.as_view(), name="register"),
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('dashboard/', include('users.urls')),
-    path('dashboard/', include('trans.urls'))
+    path('', include('trans.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

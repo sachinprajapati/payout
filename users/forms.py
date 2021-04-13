@@ -13,6 +13,7 @@ User = get_user_model()
 import random, string
 
 class RetailerForm(forms.ModelForm):
+    parent = forms.IntegerField(widget=forms.HiddenInput())
     email = forms.EmailField()
     address = forms.CharField(widget=forms.Textarea(attrs={'rows':'3'}))
     name = forms.CharField(max_length=125, label="Contact Person Name")
@@ -28,8 +29,9 @@ class RetailerForm(forms.ModelForm):
     def save(self, commit=True):
         m = super(RetailerForm, self).save(commit=False)
         data = self.cleaned_data
-        u = User(email=data['email'], name=data['name'])
-        pwd = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        u = User(email=data['email'], name=data['name'], parent_id=data['parent'])
+        # pwd = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        pwd = 'admin123'
         u.set_password(pwd)
         u.save()
         if commit:
@@ -56,6 +58,7 @@ class UserCreateForm(RetailerForm):
     def save(self, commit=True):
         m = super(RetailerForm, self).save(commit=False)
         data = self.cleaned_data
+        print("data is", data)
         u = User(email=data['email'], name=data['name'], is_reseller=data['is_reseller'])
         pwd = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         u.set_password(pwd)

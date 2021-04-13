@@ -65,7 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         Returns the first_name plus the last_name, with a space in between.
         '''
-        full_name = name
+        full_name = self.name
         return full_name.strip()
 
     def get_short_name(self):
@@ -84,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return reverse_lazy('users:update_user', kwargs={'pk': self.profile.pk})
 
     def is_retailler(self):
-        if not self.is_reseller or not self.is_staff or not self.is_superuser:
+        if self.is_reseller or self.is_staff or self.is_superuser:
             return False
         return True
 
@@ -108,7 +108,7 @@ class Profile(models.Model):
 
 
 class WalletHistory(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     prev_bal = models.DecimalField(max_digits=12, decimal_places=4, verbose_name=_("Previous Balace"))
     amount = models.DecimalField(max_digits=10, decimal_places=4, verbose_name=_("Amount Added"))
     remarks = models.TextField(null=True)

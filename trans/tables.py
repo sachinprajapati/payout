@@ -5,7 +5,7 @@ import django_tables2 as tables
 import django_filters
 from django_filters.widgets import RangeWidget, RangeWidget, forms
 
-from .models import Transaction
+from .models import *
 
 class RangeWidgetCustom(RangeWidget):
     template_name = 'filter_form.html'
@@ -45,3 +45,50 @@ class LedgerTable(tables.Table):
     remarks = tables.Column(orderable=False)
     class Meta(DMTTable.Meta):
         fields = ('id', 'dt', 'amount', 'mode', 'type', 'status', 'remarks')
+
+class WalletHistoryTable(tables.Table):
+    class Meta:
+        model = WalletHistory
+        fields = ('prev_bal', 'amount', 'remarks', 'dt')
+
+class ChargesTable(tables.Table):
+    get_update_url = tables.Column(orderable=False)
+    class Meta:
+        model = Charges
+        fields = ('min_amount', 'max_amount', 'charges', 'type', 'commission', 'minimum_charge', 'get_update_url')
+
+    def render_get_update_url(self, value):
+        return mark_safe('<a href="%s"><span class="fa fa-pencil-alt"></span></a>' % escape(value))
+
+
+class BankTable(tables.Table):
+    get_update_url = tables.Column(orderable=False, verbose_name='Edit')
+    class Meta:
+        model = Bank
+        attrs = {"class": "table table-bordered table-hover dataTable dtr-inline table-sm"}
+        fields = ('name', 'no', 'ifsc', 'branch', 'remarks', 'get_update_url')
+
+    def render_get_update_url(self, value):
+        return mark_safe('<a href="%s"><span class="fa fa-pencil-alt"></span></a>' % escape(value))
+
+
+class PaymentRequestTable(tables.Table):
+    get_type_display = tables.Column(orderable=False, verbose_name='Type')
+    class Meta:
+        model = PaymentRequest
+        attrs = {"class": "table table-bordered table-hover dataTable dtr-inline table-sm"}
+        fields = ('date', 'amount', 'get_type_display', 'deposit', 'ref', 'status', 'remarks')
+
+    def render_get_update_url(self, value):
+        return mark_safe('<a href="%s"><span class="fa fa-pencil-alt"></span></a>' % escape(value))
+
+class AllRequestTable(tables.Table):
+    get_update_url = tables.Column(orderable=False, verbose_name='Edit')
+    get_type_display = tables.Column(orderable=False, verbose_name='Type')
+    class Meta:
+        model = PaymentRequest
+        attrs = {"class": "table table-bordered table-hover dataTable dtr-inline table-sm"}
+        fields = ('date', 'amount', 'get_type_display', 'deposit', 'ref', 'remarks', 'status', 'get_update_url')
+
+    def render_get_update_url(self, value):
+        return mark_safe('<a href="%s"><span class="fa fa-pencil-alt"></span></a>' % escape(value))

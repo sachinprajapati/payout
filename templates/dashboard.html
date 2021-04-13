@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
+{% block css %}
+    <style>
+    .my-card
+    {
+        position:absolute;
+        left:40%;
+        top:-20px;
+        border-radius:50%;
+    }
+    .jumbotron {
+        padding: 2rem 1rem;
+    }
+    </style>
+{% endblock %}
+
 {% block content %}
     {% include 'navbar.html' %}
 
@@ -36,7 +51,127 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        {% block subcontent %}{% endblock %}
+        {% block subcontent %}
+            <div class="jumbotron">
+<div class="row w-100">
+        <div class="col-md-4">
+            <div class="card border-info mx-sm-1 p-4 shadow">
+                <div class="card border-info shadow text-info p-3 my-card" ><span class="fa fa-rupee-sign" aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3"><h1>{{ total_users }}</h1></div>
+                <table class="table table-bordered table-sm shadow-sm">
+                    <tr class="text-info text-center"><td>Balance</td><td>1814.768</td></tr>
+                    <tr class="text-info text-center"><td>Today</td><td>500.52</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-success mx-sm-1 p-4 shadow">
+                <div class="card border-success shadow text-success p-3 my-card"><span class="fa fa-star" aria-hidden="true"></span></div>
+                <div class="text-success text-center mt-3"><h1>{{ total_orders }}</h1></div>
+                <table class="table table-bordered table-sm shadow-sm">
+                    <tr class="text-success text-center"><td>STATUS</td><td>Active</td></tr>
+                    <tr class="text-success text-center"><td>SCHEME</td><td>Enable</td></tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-warning mx-sm-1 p-4 shadow">
+                <div class="card border-warning shadow text-warning p-3 my-card" ><span class="fa fa-paper-plane" aria-hidden="true"></span></div>
+                <div class="text-warning text-center mt-3"><h1>{{ cw.count }}</h1></div>
+                <table class="table table-bordered table-sm shadow-sm">
+                    <tr class="text-warning text-center"><td>API</td><td>Enable</td></tr>
+                </table>
+            </div>
+        </div>
+     </div>
+
+            <div class="row">
+   <div class="col-md-12 col-lg-12">
+      <div class="widget-small info coloured-icon">
+         <i class="icon fa fa-university fa-3x"></i>
+         <fieldset class="border p-1 w-100">
+            <legend class="border text-left">
+               <marquee class="text-primary">Make payment for below bank account details.</marquee>
+               <h5>Bank Details for stock purchase</h5>
+            </legend>
+            <div class="table-responsive">
+               <table class="table table-bordered table-sm">
+                  <tbody>
+                     <tr>
+                        <th>Account Name</th>
+                        <th>Bank Name</th>
+                        <th>IFSC Code</th>
+                        <th>Virtual Account No</th>
+                        <th>Payment Mode</th>
+                        <th>Remarks</th>
+                     </tr>
+                     <tr>
+                        <td>APIScript Developer Private Limited</td>
+                        <td>
+                           ICICI BANK LIMITED
+                        </td>
+                        <td>
+                           ICIC0000104
+                        </td>
+                        <td>
+                           APSD111222972999
+                        </td>
+                        <td>
+                           IMPS,NEFT,RTGS
+                        </td>
+                        <td>
+                           Instant Transfer 24/7. Not Required Fill Payment Request Form
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>APIScript Developer Private Limited</td>
+                        <td>
+                           ICICI BANK LIMITED
+                        </td>
+                        <td>
+                           ICIC0000845
+                        </td>
+                        <td>
+                           084505001336
+                        </td>
+                        <td>
+                           IMPS,NEFT,RTGS,UPI,CHEQUE
+                        </td>
+                        <td>
+                           10:00 AM to 6:00PM. Required To Fill Payment Request Form
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="alert alert-danger">Important : Your payment must be come from register account no with us.</div>
+            <h5>Your Bank Details</h5>
+            <div class="table-responsive">
+               <table class="table table-bordered table-striped">
+                  <tbody>
+                     <tr>
+                        <th scope="col" align="left">Bank Name</th>
+                        <th scope="col" align="left">Account Name</th>
+                        <th scope="col" align="left">Account No</th>
+                        <th scope="col" align="left">IFSC Code</th>
+                        <th scope="col" align="left">Branch</th>
+                     </tr>
+                     <tr>
+                        <td>ICICI BANK LIMITED</td>
+                        <td>KWALITYTECH IT SERVICES PRIVATE LIMITED</td>
+                        <td>003105031577</td>
+                        <td>ICIC0000031</td>
+                        <td>NOIDA - SECTOR 18</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </fieldset>
+      </div>
+   </div>
+</div>
+</div>
+        {% endblock %}
       </div><!--/. container-fluid -->
     </section>
     <!-- /.content -->
